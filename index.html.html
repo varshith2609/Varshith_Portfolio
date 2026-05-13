@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Varshith Ravikanti — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0f;
+  --bg2: #111118;
+  --bg3: #18181f;
+  --surface: #1e1e28;
+  --border: rgba(255,255,255,0.07);
+  --border2: rgba(255,255,255,0.12);
+  --text: #f0f0f5;
+  --muted: #7c7c96;
+  --accent: #6C63FF;
+  --accent2: #a78bfa;
+  --accent3: #34d399;
+  --danger: #f87171;
+  --font-display: 'Syne', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+}
+*,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--text); font-family: var(--font-body); font-size: 15px; line-height: 1.7; min-height: 100vh; overflow-x: hidden; }
+
+/* NOISE TEXTURE */
+body::before { content:''; position:fixed; inset:0; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E"); pointer-events:none; z-index:0; opacity:0.5; }
+
+/* AMBIENT GLOW */
+.glow-orb { position:fixed; border-radius:50%; filter:blur(120px); pointer-events:none; z-index:0; }
+.glow-1 { width:500px; height:500px; top:-100px; right:-100px; background:rgba(108,99,255,0.12); }
+.glow-2 { width:400px; height:400px; bottom:-80px; left:-80px; background:rgba(52,211,153,0.07); }
+
+/* NAV */
+nav { position:fixed; top:0; left:0; right:0; z-index:100; padding:0 2rem; height:60px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid var(--border); background:rgba(10,10,15,0.85); backdrop-filter:blur(20px); }
+.nav-logo { font-family:var(--font-display); font-weight:800; font-size:18px; color:var(--text); letter-spacing:-0.5px; cursor:pointer; }
+.nav-logo span { color:var(--accent); }
+.nav-links { display:flex; gap:2rem; }
+.nav-links a { color:var(--muted); text-decoration:none; font-size:14px; font-weight:500; transition:color 0.2s; }
+.nav-links a:hover { color:var(--text); }
+.nav-cta { font-family:var(--font-display); font-size:13px; font-weight:600; padding:8px 18px; border-radius:8px; background:var(--accent); color:#fff; border:none; cursor:pointer; transition:opacity 0.2s, transform 0.15s; }
+.nav-cta:hover { opacity:0.85; transform:translateY(-1px); }
+
+/* SECTIONS */
+section { position:relative; z-index:1; max-width:960px; margin:0 auto; padding:5rem 2rem; }
+section:first-of-type { padding-top: 9rem; }
+
+/* HERO */
+.hero { min-height:100vh; display:flex; flex-direction:column; justify-content:center; max-width:960px; margin:0 auto; padding:8rem 2rem 4rem; }
+.hero-badge { display:inline-flex; align-items:center; gap:8px; background:var(--surface); border:1px solid var(--border2); border-radius:999px; padding:6px 16px; font-size:13px; color:var(--accent2); font-weight:500; margin-bottom:2rem; width:fit-content; }
+.badge-dot { width:7px; height:7px; border-radius:50%; background:var(--accent3); animation:pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+.hero h1 { font-family:var(--font-display); font-size:clamp(3rem, 8vw, 5.5rem); font-weight:800; line-height:1.0; letter-spacing:-2px; margin-bottom:1.5rem; }
+.hero h1 em { font-style:normal; color:transparent; background:linear-gradient(135deg, var(--accent) 0%, var(--accent2) 50%, var(--accent3) 100%); -webkit-background-clip:text; background-clip:text; }
+.hero-sub { font-size:clamp(1rem,2.5vw,1.15rem); color:var(--muted); max-width:520px; margin-bottom:2.5rem; font-weight:300; line-height:1.8; }
+.hero-actions { display:flex; gap:12px; flex-wrap:wrap; }
+.btn-primary { font-family:var(--font-display); font-weight:600; font-size:14px; padding:12px 28px; border-radius:10px; background:var(--accent); color:#fff; border:none; cursor:pointer; transition:all 0.2s; }
+.btn-primary:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(108,99,255,0.35); }
+.btn-secondary { font-family:var(--font-display); font-weight:600; font-size:14px; padding:12px 28px; border-radius:10px; background:transparent; color:var(--text); border:1px solid var(--border2); cursor:pointer; transition:all 0.2s; }
+.btn-secondary:hover { background:var(--surface); border-color:var(--border2); }
+.hero-stats { display:flex; gap:2.5rem; margin-top:4rem; padding-top:2rem; border-top:1px solid var(--border); flex-wrap:wrap; }
+.hero-stat-num { font-family:var(--font-display); font-size:2rem; font-weight:800; color:var(--text); }
+.hero-stat-lbl { font-size:12px; color:var(--muted); margin-top:2px; }
+
+/* SECTION LABEL */
+.sec-label { font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:0.15em; color:var(--accent); margin-bottom:0.75rem; }
+.sec-title { font-family:var(--font-display); font-size:clamp(1.8rem,4vw,2.5rem); font-weight:800; letter-spacing:-1px; margin-bottom:1rem; }
+.sec-desc { color:var(--muted); max-width:480px; font-weight:300; margin-bottom:3rem; }
+
+/* EXPERIENCE */
+.exp-item { display:grid; grid-template-columns:160px 1fr; gap:2rem; padding:2rem 0; border-bottom:1px solid var(--border); }
+.exp-item:last-child { border-bottom:none; }
+.exp-date { font-size:13px; color:var(--muted); font-weight:400; padding-top:3px; }
+.exp-role { font-family:var(--font-display); font-size:18px; font-weight:700; margin-bottom:4px; }
+.exp-company { font-size:14px; color:var(--accent2); font-weight:500; margin-bottom:10px; }
+.exp-client { font-size:13px; color:var(--muted); margin-bottom:12px; }
+.exp-bullets { list-style:none; display:flex; flex-direction:column; gap:6px; }
+.exp-bullets li { font-size:14px; color:var(--muted); padding-left:16px; position:relative; }
+.exp-bullets li::before { content:'—'; position:absolute; left:0; color:var(--accent); }
+
+/* SKILLS */
+.skills-group { margin-bottom:2rem; }
+.skills-group-label { font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); margin-bottom:12px; }
+.skills-pills { display:flex; flex-wrap:wrap; gap:8px; }
+.skill-pill { background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:7px 14px; font-size:13px; font-weight:500; color:var(--text); transition:all 0.2s; cursor:default; }
+.skill-pill:hover { border-color:var(--accent); color:var(--accent2); transform:translateY(-1px); }
+.skill-pill.accent { border-color:rgba(108,99,255,0.3); background:rgba(108,99,255,0.08); }
+
+/* PROJECTS */
+.projects-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:1px; background:var(--border); border:1px solid var(--border); border-radius:16px; overflow:hidden; }
+.project-card { background:var(--bg2); padding:1.75rem; transition:background 0.2s; position:relative; }
+.project-card:hover { background:var(--bg3); }
+.project-card.add-card { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; cursor:pointer; min-height:200px; color:var(--muted); }
+.project-card.add-card:hover { color:var(--accent2); }
+.add-icon { width:44px; height:44px; border-radius:12px; border:1px dashed var(--border2); display:flex; align-items:center; justify-content:center; font-size:22px; transition:all 0.2s; }
+.project-card.add-card:hover .add-icon { border-color:var(--accent); background:rgba(108,99,255,0.08); }
+.proj-num { font-family:var(--font-display); font-size:11px; font-weight:700; color:var(--accent); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:12px; }
+.proj-name { font-family:var(--font-display); font-size:17px; font-weight:700; margin-bottom:8px; line-height:1.3; }
+.proj-desc { font-size:13px; color:var(--muted); line-height:1.7; margin-bottom:14px; }
+.proj-tags { display:flex; flex-wrap:wrap; gap:6px; }
+.proj-tag { font-size:11px; padding:3px 10px; border-radius:999px; background:rgba(108,99,255,0.1); color:var(--accent2); border:1px solid rgba(108,99,255,0.2); }
+.proj-footer { display:flex; justify-content:space-between; align-items:center; margin-top:1rem; padding-top:1rem; border-top:1px solid var(--border); }
+.proj-link-btn { font-size:12px; color:var(--muted); background:none; border:none; cursor:pointer; display:flex; align-items:center; gap:5px; transition:color 0.2s; padding:0; }
+.proj-link-btn:hover { color:var(--accent2); }
+.proj-del-btn { font-size:12px; color:var(--muted); background:none; border:none; cursor:pointer; transition:color 0.2s; padding:0; }
+.proj-del-btn:hover { color:var(--danger); }
+
+/* CONTACT */
+.contact-grid { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+.contact-item { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:1.25rem 1.5rem; display:flex; align-items:center; gap:14px; transition:all 0.2s; cursor:pointer; text-decoration:none; }
+.contact-item:hover { border-color:var(--accent); background:rgba(108,99,255,0.06); transform:translateY(-2px); }
+.contact-icon { width:38px; height:38px; border-radius:10px; background:rgba(108,99,255,0.12); display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0; }
+.contact-lbl { font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:0.08em; }
+.contact-val { font-size:14px; font-weight:500; color:var(--text); }
+
+/* MODAL */
+.modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.75); backdrop-filter:blur(8px); z-index:500; align-items:center; justify-content:center; padding:1rem; }
+.modal-overlay.open { display:flex; }
+.modal { background:var(--bg2); border:1px solid var(--border2); border-radius:20px; padding:2rem; width:100%; max-width:480px; animation:modalIn 0.25s ease; }
+@keyframes modalIn { from{opacity:0;transform:scale(0.96) translateY(10px)} to{opacity:1;transform:none} }
+.modal-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem; }
+.modal-title { font-family:var(--font-display); font-size:20px; font-weight:700; }
+.modal-close { background:var(--surface); border:1px solid var(--border); color:var(--muted); width:32px; height:32px; border-radius:8px; cursor:pointer; font-size:18px; display:flex; align-items:center; justify-content:center; transition:all 0.2s; }
+.modal-close:hover { color:var(--text); border-color:var(--border2); }
+.form-group { margin-bottom:1.25rem; }
+.form-label { display:block; font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; color:var(--muted); margin-bottom:8px; }
+.form-input { width:100%; background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:11px 14px; color:var(--text); font-family:var(--font-body); font-size:14px; outline:none; transition:border-color 0.2s; }
+.form-input:focus { border-color:var(--accent); }
+.form-input::placeholder { color:var(--muted); }
+textarea.form-input { height:90px; resize:vertical; }
+.modal-footer { display:flex; gap:10px; justify-content:flex-end; margin-top:1.5rem; }
+.btn-sm { font-family:var(--font-display); font-weight:600; font-size:13px; padding:9px 20px; border-radius:8px; cursor:pointer; transition:all 0.2s; }
+.btn-cancel { background:var(--surface); color:var(--muted); border:1px solid var(--border); }
+.btn-cancel:hover { color:var(--text); }
+.btn-save { background:var(--accent); color:#fff; border:none; }
+.btn-save:hover { opacity:0.85; transform:translateY(-1px); }
+
+/* TOAST */
+.toast { position:fixed; bottom:2rem; left:50%; transform:translateX(-50%) translateY(10px); background:var(--surface); border:1px solid var(--border2); border-radius:10px; padding:12px 22px; font-size:13px; font-weight:500; color:var(--text); opacity:0; transition:all 0.3s; pointer-events:none; z-index:999; white-space:nowrap; }
+.toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+
+/* FOOTER */
+footer { text-align:center; padding:3rem 2rem; border-top:1px solid var(--border); color:var(--muted); font-size:13px; position:relative; z-index:1; }
+
+/* SCROLL REVEAL */
+.reveal { opacity:0; transform:translateY(28px); transition:opacity 0.7s ease, transform 0.7s ease; }
+.reveal.visible { opacity:1; transform:none; }
+
+/* EDITABLE INDICATOR */
+[contenteditable]:hover { outline:1px dashed rgba(108,99,255,0.4); border-radius:4px; }
+[contenteditable]:focus { outline:1px solid var(--accent); border-radius:4px; }
+
+@media(max-width:640px) {
+  .exp-item { grid-template-columns:1fr; gap:0.5rem; }
+  .contact-grid { grid-template-columns:1fr; }
+  .nav-links { display:none; }
+  .hero-stats { gap:1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="glow-orb glow-1"></div>
+<div class="glow-orb glow-2"></div>
+
+<nav>
+  <div class="nav-logo">VR<span>.</span></div>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#experience">Experience</a>
+    <a href="#projects">Projects</a>
+    <a href="#skills">Skills</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <button class="nav-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Hire Me</button>
+</nav>
+
+<!-- HERO -->
+<div class="hero" id="about">
+  <div class="hero-badge"><span class="badge-dot"></span> Open to new opportunities</div>
+  <h1>
+    <span contenteditable="true" title="Click to edit">Varshith</span><br>
+    <em contenteditable="true" title="Click to edit">Ravikanti.</em>
+  </h1>
+  <p class="hero-sub" contenteditable="true" title="Click to edit">SAP BODS Developer with 2+ years building enterprise data migration pipelines. Specializing in Syniti ADMM and SAP S/4 HANA at LTIMindtree.</p>
+  <div class="hero-actions">
+    <button class="btn-primary" onclick="document.getElementById('projects').scrollIntoView({behavior:'smooth'})">View Projects</button>
+    <button class="btn-secondary" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Get in Touch</button>
+  </div>
+  <div class="hero-stats">
+    <div>
+      <div class="hero-stat-num">2+</div>
+      <div class="hero-stat-lbl">Years Experience</div>
+    </div>
+    <div>
+      <div class="hero-stat-num" id="stat-projects">0</div>
+      <div class="hero-stat-lbl">Projects</div>
+    </div>
+    <div>
+      <div class="hero-stat-num">3</div>
+      <div class="hero-stat-lbl">Mock Migration Cycles</div>
+    </div>
+    <div>
+      <div class="hero-stat-num">8.4</div>
+      <div class="hero-stat-lbl">CGPA · B.Tech CSE</div>
+    </div>
+  </div>
+</div>
+
+<!-- EXPERIENCE -->
+<section id="experience" class="reveal">
+  <div class="sec-label">Career</div>
+  <div class="sec-title">Experience</div>
+  <p class="sec-desc">Building enterprise-grade SAP data migration solutions at scale.</p>
+
+  <div class="exp-item">
+    <div>
+      <div class="exp-date">Mar 2024 – Apr 2026</div>
+    </div>
+    <div>
+      <div class="exp-role">Software Engineer</div>
+      <div class="exp-company">LTIMindtree · Hyderabad, India</div>
+      <div class="exp-client">Client: Ryan Specialty – Policy ADMM</div>
+      <ul class="exp-bullets">
+        <li>Designed 20+ BODS Jobs, Workflows & Dataflows for SAP S/4 HANA migration</li>
+        <li>Supported 3 full mock migration cycles with less than 0.5% post-load discrepancy</li>
+        <li>Built Export Views in Syniti Data Replicate across 15+ migration objects</li>
+        <li>Prepared Pre-Load & Post-Load reconciliation reports for stakeholder sign-off</li>
+        <li>Achieved 95%+ first-run job success rate after log-based optimizations</li>
+        <li>Resolved 30+ data quality issues collaborating with functional & technical teams</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" class="reveal">
+  <div class="sec-label">Expertise</div>
+  <div class="sec-title">Skills</div>
+  <p class="sec-desc">End-to-end SAP data migration stack — from source extraction to target loading.</p>
+
+  <div class="skills-group">
+    <div class="skills-group-label">SAP Platform</div>
+    <div class="skills-pills">
+      <span class="skill-pill accent">SAP BODS 4.3</span>
+      <span class="skill-pill accent">SAP S/4 HANA</span>
+      <span class="skill-pill accent">SAP DMC</span>
+      <span class="skill-pill accent">SAP Fiori</span>
+    </div>
+  </div>
+  <div class="skills-group">
+    <div class="skills-group-label">Migration Tools</div>
+    <div class="skills-pills">
+      <span class="skill-pill">Syniti ADMM</span>
+      <span class="skill-pill">IDOC</span>
+      <span class="skill-pill">BAPI</span>
+      <span class="skill-pill">LSMW</span>
+      <span class="skill-pill">BODS Designer</span>
+      <span class="skill-pill">SSMS</span>
+    </div>
+  </div>
+  <div class="skills-group">
+    <div class="skills-group-label">ETL & Transforms</div>
+    <div class="skills-pills">
+      <span class="skill-pill">Query Transform</span>
+      <span class="skill-pill">Validation Transform</span>
+      <span class="skill-pill">SQL Transform</span>
+      <span class="skill-pill">Merge Transform</span>
+      <span class="skill-pill">Data Validation</span>
+    </div>
+  </div>
+  <div class="skills-group">
+    <div class="skills-group-label">Databases</div>
+    <div class="skills-pills">
+      <span class="skill-pill">SQL Server</span>
+      <span class="skill-pill">Oracle</span>
+      <span class="skill-pill">Flat Files (CSV/XML)</span>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" class="reveal">
+  <div style="display:flex; align-items:flex-end; justify-content:space-between; flex-wrap:wrap; gap:1rem; margin-bottom:2rem;">
+    <div>
+      <div class="sec-label">Portfolio</div>
+      <div class="sec-title" style="margin-bottom:0">Projects</div>
+    </div>
+    <button class="btn-primary" onclick="openProjModal()" style="height:fit-content;">+ Add Project</button>
+  </div>
+
+  <div class="projects-grid" id="projects-grid">
+    <!-- cards injected by JS -->
+    <div class="project-card add-card" onclick="openProjModal()">
+      <div class="add-icon">+</div>
+      <span style="font-size:13px; font-weight:500;">Add your first project</span>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="reveal">
+  <div class="sec-label">Get in Touch</div>
+  <div class="sec-title">Contact</div>
+  <p class="sec-desc">Open to new roles, freelance projects, and SAP consulting opportunities.</p>
+  <div class="contact-grid">
+    <a class="contact-item" href="mailto:vashith2609@gmail.com">
+      <div class="contact-icon">✉</div>
+      <div>
+        <div class="contact-lbl">Email</div>
+        <div class="contact-val">vashith2609@gmail.com</div>
+      </div>
+    </a>
+    <a class="contact-item" href="tel:+919440453210">
+      <div class="contact-icon">📞</div>
+      <div>
+        <div class="contact-lbl">Phone</div>
+        <div class="contact-val">+91-9440453210</div>
+      </div>
+    </a>
+    <a class="contact-item" href="https://linkedin.com" target="_blank">
+      <div class="contact-icon">in</div>
+      <div>
+        <div class="contact-lbl">LinkedIn</div>
+        <div class="contact-val">linkedin.com/in/varshith</div>
+      </div>
+    </a>
+    <div class="contact-item" style="cursor:default;">
+      <div class="contact-icon">📍</div>
+      <div>
+        <div class="contact-lbl">Location</div>
+        <div class="contact-val">Hyderabad, India</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Built by Varshith Ravikanti · <span id="yr"></span>
+</footer>
+
+<!-- PROJECT MODAL -->
+<div class="modal-overlay" id="proj-modal" onclick="if(event.target===this)closeProjModal()">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Add Project</div>
+      <button class="modal-close" onclick="closeProjModal()">✕</button>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Project Name *</label>
+      <input class="form-input" id="p-name" placeholder="e.g. Ryan Specialty Data Migration" />
+    </div>
+    <div class="form-group">
+      <label class="form-label">Description</label>
+      <textarea class="form-input" id="p-desc" placeholder="What did you do, what was the impact?"></textarea>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Tags (comma-separated)</label>
+      <input class="form-input" id="p-tags" placeholder="SAP BODS, Syniti ADMM, S/4 HANA" />
+    </div>
+    <div class="form-group">
+      <label class="form-label">Project Link (optional)</label>
+      <input class="form-input" id="p-link" placeholder="https://github.com/..." />
+    </div>
+    <div class="modal-footer">
+      <button class="btn-sm btn-cancel" onclick="closeProjModal()">Cancel</button>
+      <button class="btn-sm btn-save" onclick="saveProject()">Add Project</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+document.getElementById('yr').textContent = new Date().getFullYear();
+
+// ── PROJECTS ──
+let projects = JSON.parse(localStorage.getItem('vr_projects') || '[]');
+
+function saveToStorage() {
+  localStorage.setItem('vr_projects', JSON.stringify(projects));
+}
+
+function renderProjects() {
+  const grid = document.getElementById('projects-grid');
+  document.getElementById('stat-projects').textContent = projects.length;
+  let html = projects.map((p, i) => `
+    <div class="project-card">
+      <div class="proj-num">Project ${String(i+1).padStart(2,'0')}</div>
+      <div class="proj-name">${esc(p.name)}</div>
+      <div class="proj-desc">${esc(p.desc || '')}</div>
+      <div class="proj-tags">${(p.tags||[]).map(t=>`<span class="proj-tag">${esc(t)}</span>`).join('')}</div>
+      <div class="proj-footer">
+        ${p.link ? `<button class="proj-link-btn" onclick="window.open('${esc(p.link)}','_blank')">↗ View Project</button>` : '<span></span>'}
+        <button class="proj-del-btn" onclick="deleteProject(${i})">✕ Remove</button>
+      </div>
+    </div>
+  `).join('');
+  html += `<div class="project-card add-card" onclick="openProjModal()"><div class="add-icon">+</div><span style="font-size:13px;font-weight:500;">Add project</span></div>`;
+  grid.innerHTML = html;
+}
+
+function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+function openProjModal() { document.getElementById('proj-modal').classList.add('open'); document.getElementById('p-name').focus(); }
+function closeProjModal() { document.getElementById('proj-modal').classList.remove('open'); clearForm(); }
+
+function clearForm() {
+  ['p-name','p-desc','p-tags','p-link'].forEach(id => document.getElementById(id).value = '');
+}
+
+function saveProject() {
+  const name = document.getElementById('p-name').value.trim();
+  if (!name) { showToast('Please enter a project name'); return; }
+  const tags = document.getElementById('p-tags').value.split(',').map(t=>t.trim()).filter(Boolean);
+  projects.push({ name, desc: document.getElementById('p-desc').value.trim(), tags, link: document.getElementById('p-link').value.trim() });
+  saveToStorage();
+  renderProjects();
+  closeProjModal();
+  showToast('✓ Project added!');
+}
+
+function deleteProject(i) {
+  projects.splice(i,1);
+  saveToStorage();
+  renderProjects();
+  showToast('Project removed');
+}
+
+// ── TOAST ──
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(t._tid);
+  t._tid = setTimeout(() => t.classList.remove('show'), 2400);
+}
+
+// ── SCROLL REVEAL ──
+const reveals = document.querySelectorAll('.reveal');
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+}, { threshold: 0.12 });
+reveals.forEach(r => obs.observe(r));
+
+// ── INIT ──
+renderProjects();
+</script>
+</body>
+</html>

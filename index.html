@@ -378,7 +378,26 @@ footer { text-align:center; padding:3rem 2rem; border-top:1px solid var(--border
 document.getElementById('yr').textContent = new Date().getFullYear();
 
 // ── PROJECTS ──
-let projects = JSON.parse(localStorage.getItem('vr_projects') || '[]');
+let projects = JSON.parse(localStorage.getItem('vr_projects') || JSON.stringify([
+  {
+    name: "Ryan Specialty – Policy ADMM",
+    desc: "Worked on the Ryan Specialty Policy ADMM migration project using Syniti ADMM and SQL Server. Involved in dataset design, field mapping, ETL execution, rule creation, and report validation. Configured source-to-target mappings and supported transformation logic for legacy insurance policy data migration.",
+    tags: ["SAP BODS", "Syniti ADMM", "S/4 HANA", "SQL Server"],
+    link: ""
+  },
+  {
+    name: "Vendor Master Data Migration",
+    desc: "Designed and executed migration of vendor master data from legacy systems into SAP ECC. Handled end-to-end ETL job execution and data validation.",
+    tags: ["BODS", "DMC", "SAP ECC"],
+    link: ""
+  },
+  {
+    name: "Legacy ERP to SAP ECC Migration",
+    desc: "Participated in end-to-end migration of legacy ERP data into SAP ECC by designing mappings, executing ETL jobs, and validating target-ready data.",
+    tags: ["Syniti ADMM", "SQL Server", "BODS"],
+    link: ""
+  }
+]));
 
 function saveToStorage() {
   localStorage.setItem('vr_projects', JSON.stringify(projects));
